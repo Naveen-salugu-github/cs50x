@@ -93,13 +93,6 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     print(source, target)
-    source_person = person_id_for_name(source)
-    target_person = person_id_for_name(target)
-    print(source_person, target_person)
-    if source_person is None or target_person is None:
-        return None
-    if source_person == target_person:
-        return []
     person_ids_list = neighbors_for_person(source)
     print("person_ids_list", person_ids_list)
 
