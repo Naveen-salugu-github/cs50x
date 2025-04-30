@@ -56,6 +56,7 @@ def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
     directory = sys.argv[1] if len(sys.argv) == 2 else "large"
+    print("directory", directory)
 
     # Load data from files into memory
     print("Loading data...")
@@ -91,9 +92,14 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    print(source, target)
+    person_ids_list = neighbors_for_person(source)
+    print("person_ids_list", person_ids_list)
+
+
 
     # TODO
-    raise NotImplementedError
+    person_ids_list
 
 
 def person_id_for_name(name):
