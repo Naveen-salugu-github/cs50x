@@ -92,59 +92,39 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    print(source, target)
-
-    person_ids_list = neighbors_for_person(source)
-    print("person_ids_list", person_ids_list)
-    """Finds a solution to maze, if one exists."""
-
-    # Keep track of number of states explored
-    self.num_explored = 0
-
-    # Initialize frontier to just the starting position
-    start = Node(state=self.start, parent=None, action=None)
-    frontier = StackFrontier()
+    # Initialize the frontier with the starting position
+    start = Node(state=source, parent=None, action=None)
+    frontier = QueueFrontier()  # Use a queue for breadth-first search (BFS)
     frontier.add(start)
 
     # Initialize an empty explored set
-    self.explored = set()
+    explored = set()
 
-    # Keep looping until solution found
-    while True:
-
-        # If nothing left in frontier, then no path
-        if frontier.empty():
-            raise Exception("no solution")
-
-        # Choose a node from the frontier
+    # Loop until a solution is found
+    while not frontier.empty():
+        # Remove a node from the frontier
         node = frontier.remove()
-        self.num_explored += 1
 
-        # If node is the goal, then we have a solution
-        if node.state == self.goal:
-            actions = []
-            cells = []
+        # If the node is the target, reconstruct the path
+        if node.state == target:
+            path = []
             while node.parent is not None:
-                actions.append(node.action)
-                cells.append(node.state)
+                path.append((node.action, node.state))
                 node = node.parent
-            actions.reverse()
-            cells.reverse()
-            self.solution = (actions, cells)
-            return
+            path.reverse()
+            return path
 
-        # Mark node as explored
-        self.explored.add(node.state)
+        # Mark the node as explored
+        explored.add(node.state)
 
-        # Add neighbors to frontier
-        for action, state in self.neighbors(node.state):
-            if not frontier.contains_state(state) and state not in self.explored:
-                child = Node(state=state, parent=node, action=action)
+        # Add neighbors to the frontier
+        for movie_id, person_id in neighbors_for_person(node.state):
+            if not frontier.contains_state(person_id) and person_id not in explored:
+                child = Node(state=person_id, parent=node, action=movie_id)
                 frontier.add(child)
 
-
-    # TODO
-    person_ids_list
+    # If no path is found, return None
+    return None
 
 
 def person_id_for_name(name):
