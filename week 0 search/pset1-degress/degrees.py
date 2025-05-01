@@ -94,7 +94,7 @@ def shortest_path(source, target):
     """
     print(source, target)
 
-    person_ids_list = neighbors_for_person(source).sort()
+    person_ids_list = neighbors_for_person(source)
     print("person_ids_list", person_ids_list)
 
 
