@@ -93,7 +93,8 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     print(source, target)
-    person_ids_list = neighbors_for_person(source)
+
+    person_ids_list = neighbors_for_person(source).sort()
     print("person_ids_list", person_ids_list)
 
 
