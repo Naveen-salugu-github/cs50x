@@ -19,6 +19,7 @@ def initial_state():
 
 
 def player(board):
+    #first player is always X
     x_count = sum(row.count(X) for row in board)
     o_count = sum(row.count(O) for row in board)
     return X if x_count == o_count else O
@@ -29,8 +30,18 @@ def actions(board):
 
 
 def result(board, action):
+    """
+    Returns the board that results from making the given move (action) on the board.
+    """
+    # Validate that the action is within bounds
+    if not (0 <= action[0] < 3 and 0 <= action[1] < 3):
+        raise ValueError("Action is out of bounds")
+
+    # Validate that the cell is empty
     if board[action[0]][action[1]] is not EMPTY:
-        raise ValueError("Invalid action")
+        raise ValueError("Invalid action: Cell is already occupied")
+
+    # Create a deep copy of the board and apply the action
     new_board = [row[:] for row in board]
     new_board[action[0]][action[1]] = player(board)
     return new_board
