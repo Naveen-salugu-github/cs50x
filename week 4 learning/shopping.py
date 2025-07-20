@@ -27,7 +27,7 @@ def main():
     )
 
     # Train model and make predictions
-    model = train_model(X_train, y_train, k)
+    model = train_model(X_train, y_train, k=1)
     predictions = model.predict(X_test)
     sensitivity, specificity = evaluate(y_test, predictions)
 
